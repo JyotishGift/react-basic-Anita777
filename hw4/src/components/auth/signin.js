@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './signin.css';
-//import api from '../../services/api';
-//import {requestGet} from '../../services/api';
+import Api from '../../services/api';
+import {Redirect } from 'react-router-dom';
 
 class Signin extends Component {
 	constructor(props) {
@@ -9,33 +9,25 @@ class Signin extends Component {
 		this.state = {
       user: '',
       password: '',
-
-      touched: {
-        name: false,
-        password: false
-      }
     };
     this.updateInput = this.updateInput.bind(this);
     this.signIn = this.signIn.bind(this);
+    this.url = 'http://api.jyotish.gift/api/v1/auth/login/';
   }
-  signIn(){
-    //alert('User is ' + this.state.user + ' Password is ' + this.state.password);  
-    //requestGet();
-    const url = 'http://api.jyotish.gift/api/v1/auth/';
-    return fetch(url+'/signup', {
-      method: "POST",
-      body: JSON.stringify({
-        user: this.state.user,
-        password: this.state.password
-      }),
-      headers: { "Content-Type": "application/json" },
-    })
-    .then(data => {
-      console.log(data);
-    })
-    .catch(err => {
-      console.log('Request failed', err)
-    });
+  signIn(e){
+    e.preventDefault();
+    let data = { 
+      user:this.state.user,
+      password: this.state.password 
+    };
+    const dataRequest = Api.request(this.url, data);
+    let nameUser = dataRequest.then(data => console.log(data.message.user.name));
+    dataRequest.then(result => {
+    if(result.status === 'success') {
+      this.props.loginIn();
+      console.log(this.props.nameUser = nameUser);
+      }
+    }); 
   }
   updateInput(e) {
    this.setState({ [e.target.name]: e.target.value });
@@ -43,21 +35,17 @@ class Signin extends Component {
 
   render() {
     return (
-     <form>
-      <label htmlFor="name">User </label>
+     <form onSubmit={this.signIn}>
       <input
         onChange={this.updateInput}
-        id="user"  
         type="text"
         name="user"
         placeholder="Enter user"
         required
       />
-       <label htmlFor="password">Password </label>
         <input
         onChange={this.updateInput}
         type="text" 
-        id="password" 
         name="password" 
         placeholder="Enter password"
         required
