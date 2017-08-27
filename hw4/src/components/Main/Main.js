@@ -3,30 +3,31 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import './Main.css';
 import Signin from '../auth/signin';
 import Signup from '../auth/signup';
+import Signout from '../auth/signout';
 import User from '../auth/user';
 
 class Main extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
-      user: '',
-      login: false
+      user: null,
+      loggedIn: false
     }
   }
-  setLogin = () => {
-    this.setState({ login: true });
-    // return <Redirect to="/user" />;
+  setLoggedIn = () => {
+    this.setState({ loggedIn: true });
   }
-
-  render() {
+  render() {//{`/${user}`}
     const { user } = this.state;
-    console.log({ user })
     return (
       <div className="Main">
         <Switch>
-          <Route exact path="/signin" render={() =><Signin loginIn={this.setLogin}/>}/>
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/user" component={User}/>
+        {this.state.loggedIn && <Redirect to= '/user' />}
+          <Route exact path='/signin' render={() =>
+          <Signin loggedIn={this.setLoggedIn} />} />
+          <Route exact path='/signup' component={Signup} />
+          <Route exact path='/signout' component={Signout} />
+          <Route exact path='/user' component={User}/>
         </Switch>
       </div>
     )
@@ -34,3 +35,6 @@ class Main extends Component {
 }
 
 export default Main;
+
+
+

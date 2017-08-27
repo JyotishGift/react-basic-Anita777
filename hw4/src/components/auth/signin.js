@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './signin.css';
 import Api from '../../services/api';
-import {Redirect } from 'react-router-dom';
 
 class Signin extends Component {
 	constructor(props) {
@@ -9,6 +8,7 @@ class Signin extends Component {
 		this.state = {
       user: '',
       password: '',
+      name: null
     };
     this.updateInput = this.updateInput.bind(this);
     this.signIn = this.signIn.bind(this);
@@ -16,25 +16,28 @@ class Signin extends Component {
   }
   signIn(e){
     e.preventDefault();
-    let data = { 
+    let dataUser = { 
       user:this.state.user,
       password: this.state.password 
     };
-    const dataRequest = Api.request(this.url, data);
-    let nameUser = dataRequest.then(data => console.log(data.message.user.name));
-    dataRequest.then(result => {
-    if(result.status === 'success') {
-      this.props.loginIn();
-      console.log(this.props.nameUser = nameUser);
+    Api.request(this.url, dataUser).then(data => {
+      this.setState({name: data.message.user.name});
+      let userName = data.message.user.name;
+      let userEmail = data.message.user.email;
+      let userProfile = {userName, userEmail}
+      window.localStorage.setItem('token', data.message.token);
+      window.localStorage.setItem('userProfile', JSON.stringify(userProfile));
+      if(data.status === 'success') {
+         this.props.loggedIn()    
       }
-    }); 
+    });
   }
   updateInput(e) {
    this.setState({ [e.target.name]: e.target.value });
   }
-
   render() {
-    return (
+    console.log(this.state.name)
+   return (
      <form onSubmit={this.signIn}>
       <input
         onChange={this.updateInput}

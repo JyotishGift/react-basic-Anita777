@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 
-class SignOut extends Component{
+class Signout extends Component{
   constructor(props){
     super(props);
     this.state = {
   }
-    this.onClick = this.onClick.bind(this);
+    this.onClickOut = this.onClickOut.bind(this);
   }
-
-  onClick() {
-
+  onClickOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userProfile');
+    window.location.href = "/";
   }
   render(){
     return (
-      <button onClick={this.onClick} >Quit</button>
+      <button  style={{ width: '150px'}} onClick={this.onClickOut} >Quit</button>
     )
   }
 }
-export default SignOut;
+export default Signout;
