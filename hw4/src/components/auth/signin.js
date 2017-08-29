@@ -8,7 +8,7 @@ class Signin extends Component {
 		this.state = {
       user: '',
       password: '',
-      name: null
+      errors: '',
     };
     this.updateInput = this.updateInput.bind(this);
     this.signIn = this.signIn.bind(this);
@@ -21,22 +21,27 @@ class Signin extends Component {
       password: this.state.password 
     };
     Api.request(this.url, dataUser).then(data => {
-      this.setState({name: data.message.user.name});
-      let userName = data.message.user.name;
-      let userEmail = data.message.user.email;
-      let userProfile = {userName, userEmail}
-      window.localStorage.setItem('token', data.message.token);
-      window.localStorage.setItem('userProfile', JSON.stringify(userProfile));
       if(data.status === 'success') {
-         this.props.loggedIn()    
+        this.setState({info: data.message});
+        this.props.loginSet();
+        this.parseRequest(this.state.info);
+      } else {
+        this.setState({errors: data.message});
+        alert(this.state.errors)
       }
     });
+  }
+  parseRequest(obj) {
+    let userName = obj.user.name;
+    let userEmail = obj.user.email;
+    let userProfile = {userName, userEmail}
+    window.localStorage.setItem('token', obj.token);
+    window.localStorage.setItem('userProfile', JSON.stringify(userProfile));
   }
   updateInput(e) {
    this.setState({ [e.target.name]: e.target.value });
   }
   render() {
-    console.log(this.state.name)
    return (
      <form onSubmit={this.signIn}>
       <input

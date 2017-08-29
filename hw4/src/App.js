@@ -5,12 +5,24 @@ import Footer from './components/Footer/Footer';
 import './theme/App.css';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      login: false,
+    }
+     this.loginIn = this.loginIn.bind(this);
+  }
+  
+  loginIn () {
+    this.setState({ login: true});
+  }
 
   render() {
+    
     return (
       <div className="App">
-        <Header/>
-        <Main />
+        <Header  logging={this.state.login}/>
+        <Main logging={this.state.login} loginIn={this.loginIn}/>
         <Footer />
       </div>
     );
