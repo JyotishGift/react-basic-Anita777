@@ -6,7 +6,8 @@ import historyReducer from './history-reducer';
 
 const rootReducer = combineReducers({
   counterReducer: counterReducer,
-  historyReducer:  historyReducer
+  historyReducer:  historyReducer,
 });
 
 export default rootReducer;
+

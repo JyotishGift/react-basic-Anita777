@@ -1,21 +1,24 @@
 
 import { DEC, INC, CLR, UNIC } from '../actions/types';
+import { createStore } from 'redux';
+import reducer from './counter-reducer';
+import rootReducer from './index'
 
-const history = (state =  { counter: 100, prevCounters:[]}, action) => {
+let store = createStore(reducer);
+const history = (state = {prevCounters: []}, action) => {
   switch (action.type) {
     case INC: {
-      state.counter = state.counter + 1;
-      state.prevCounters = state.prevCounters.concat(state.counter);
+      store.dispatch({type : 'INC'});
+      state.prevCounters = state.prevCounters.concat(store.getState().counter);
       return state
     }
     case DEC: {
-      state.counter = state.counter - 1;
-      state.prevCounters = state.prevCounters.concat(state.counter);
+      store.dispatch({type : 'DEC'});
+      state.prevCounters = state.prevCounters.concat(store.getState().counter);
       return state
     }
-    case CLR: {
-      state.prevCounters = [];
-      return state
+     case CLR: {
+      return rootReducer;
     }
     case UNIC: {
       state.prevCounters = [...new Set(state.prevCounters)];

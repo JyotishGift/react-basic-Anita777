@@ -1,5 +1,6 @@
 
 import { DEC, INC } from '../actions/types';
+import { createStore } from 'redux';
 
 const reducer = (state = { counter: 100 }, action) => {
   switch (action.type) {
@@ -12,4 +13,3 @@ const reducer = (state = { counter: 100 }, action) => {
   }
 };
 export default reducer;
-

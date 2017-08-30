@@ -9,8 +9,10 @@ import './index.css';
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 
-
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, {
+	counter: 0,
+	prevCounters: []
+});
 
 ReactDOM.render(
   <Provider store={store}>
