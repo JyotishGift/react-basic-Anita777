@@ -25,6 +25,7 @@ class Signin extends Component {
         this.setState({info: data.message});
         this.props.loginSet();
         this.parseRequest(this.state.info);
+        this.props.history.push('/user/')
       } else {
         this.setState({errors: data.message});
         alert(this.state.errors)

@@ -3,17 +3,14 @@ import { Link } from 'react-router-dom';
 import './Header.css';
 
 const Header = props => {
-  const {logging, userProfile} = props;
-  console.log(props)
+  const {logging} = props;
     return (
     <header className="Header">
     <div>
        {(logging) ? (
-        
         <ul>
           <li><Link to ='/'>Home</Link></li>
           <li><Link to="/signout">SIGN OUT</Link></li>
-          <li><Link to="/user">USER</Link></li>
         </ul>
         ) : (
         <ul>

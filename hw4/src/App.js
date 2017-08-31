@@ -5,10 +5,11 @@ import Footer from './components/Footer/Footer';
 import './theme/App.css';
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       login: false,
+      userName:''
     }
      this.loginIn = this.loginIn.bind(this);
   }
@@ -18,7 +19,6 @@ class App extends Component {
   }
 
   render() {
-    
     return (
       <div className="App">
         <Header  logging={this.state.login}/>
