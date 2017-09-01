@@ -9,10 +9,12 @@ import './index.css';
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 
-const store = createStore(rootReducer, {
-	counter: 0,
-	prevCounters: []
-});
+/*/const initialState = {
+  counter: 0,
+  prevCounters: []
+}*/
+
+const store = createStore(rootReducer/*, initialState*/);
 
 ReactDOM.render(
   <Provider store={store}>
@@ -22,3 +24,4 @@ ReactDOM.render(
 );
 
 registerServiceWorker();
+
