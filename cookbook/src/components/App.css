@@ -1,0 +1,13 @@
+.App {
+  text-align: center;
+  display: grid;
+  grid-template-columns: 70fr 30fr;
+}
+
+.recipe-active {
+  grid-column: 1;
+}
+
+.recipe-list {
+  grid-column: 2;
+}
