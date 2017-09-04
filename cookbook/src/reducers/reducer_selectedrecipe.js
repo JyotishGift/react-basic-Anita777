@@ -1,4 +1,4 @@
-//import {RECIPE_SELECT,RECIPE_ADD, RECIPE_DELETE} from '../actions/types';
+//import {RECIPE_SELECT,RECIPE_ADD, RECIPE_DELETE, SEARCH} from '../actions/types';
 
 const initialState = {
   ingredients: [
@@ -30,8 +30,21 @@ export const recipeReducer = (state = initialState, action) => {
       });
     return { ...state, recipes: recipesCopy};
     }
+    
     case 'RECIPE_ADD': 
-      return   {...state, recipes: state.recipes.concat(action.payload), };
+      return   {...state, recipes: state.recipes.concat(action.payload)};
+
+    case 'SEARCH': {
+      const recipesCopy = [...state.recipes].filter(recipe => {
+        if (recipe.name.indexOf(action.payload) !== -1) {
+          return { ...recipe }
+        }
+      })
+      if (action.payload === null) 
+        return { ...state, recipes: initialState.recipes};
+      return {...state, recipes: recipesCopy}
+    }
+    
     default:
       return state;
   }
@@ -45,5 +58,3 @@ export const selectedrecipeReducer = (state = null, action) => {
       return state;
   }
 }
-
-

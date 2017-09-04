@@ -1,17 +1,9 @@
-/*
-export default function selectRecipe(recipe) {
+
+
+export  function selectRecipe(recipe) {
   return {
     type: 'RECIPE_SELECT',
     data: recipe     
-  };
-}
-*/
-import {RECIPE_SELECT,RECIPE_ADD, RECIPE_DELETE} from '../actions/types';
-
-export  function selectRecipe(id) {
-  return {
-    type: 'RECIPE_SELECT',
-    data: id     
   };
 }
 
@@ -22,12 +14,20 @@ export function deleteRecipe (id) {
   };
 }
 
-export function addRecipe(nameRec) {
+export function addRecipe(nameRec, id) {
   return { 
     type: 'RECIPE_ADD',
     payload: {
-        recipe_id: 'x',
+        recipe_id: id,
         name: nameRec
     }
   }
+}
+
+export const searchRecipe = (rec) => {
+  if (rec === '') rec = null
+  return {
+    type: 'SEARCH',
+    payload: rec
+  };
 }
