@@ -9,6 +9,7 @@ import registerServiceWorker from './registerServiceWorker';
 import rootReducer from './reducers';
 
 const store = createStore(rootReducer);
+window.store = store;
 
 ReactDOM.render(
   <Provider store={store}>

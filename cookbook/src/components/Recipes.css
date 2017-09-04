@@ -21,3 +21,9 @@ ul {
   display: block;
   vertical-align:middle;
 }
+.show {
+  display: block;
+}
+.hide {
+  display: none;
+}

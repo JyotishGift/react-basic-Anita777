@@ -1,8 +1,8 @@
 
-export default function selectedingridReducer(state = null, action) {
+export default function selectedingredReducer(state = null, action) {
 	console.log(action)
   switch (action.type) {
-    case 'INGRID_SELECT':
+    case 'INGRED_SELECT':
     console.log(state)
       return state//[...state, action.ingrid];
      default:
