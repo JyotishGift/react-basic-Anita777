@@ -31,3 +31,14 @@ export const searchRecipe = (rec) => {
     payload: rec
   };
 }
+
+export function addIngredient(name, quanity, id) {
+  return { 
+    type: 'INGREDIENT_ADD',
+    payload: {
+      name: name,
+      ingred_id: id,
+      quanity
+    }
+  }
+}

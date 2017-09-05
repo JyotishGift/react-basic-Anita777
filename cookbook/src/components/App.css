@@ -1,13 +1,28 @@
+
 .App {
   text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 150px;
+}
+
+ul li {
+  font-size: 25px;
+}
+
+h1 {
+  font-size: 40px;
+}
+.header{
   display: grid;
-  grid-template-columns: 70fr 30fr;
+  grid-template-columns: 50fr 50fr;
 }
-
-.recipe-active {
-  grid-column: 1;
+.nav {
+  grid-column: 1;  
 }
-
-.recipe-list {
+.image {
   grid-column: 2;
+  text-align: center;
 }

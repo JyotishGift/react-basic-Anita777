@@ -1,4 +1,3 @@
-//import {RECIPE_SELECT,RECIPE_ADD, RECIPE_DELETE, SEARCH} from '../actions/types';
 
 const initialState = {
   ingredients: [
@@ -44,7 +43,9 @@ export const recipeReducer = (state = initialState, action) => {
         return { ...state, recipes: initialState.recipes};
       return {...state, recipes: recipesCopy}
     }
-    
+    case 'INGREDIENT_ADD': {
+      return   {...state, ingredients: state.ingredients.concat(action.payload)};
+    }
     default:
       return state;
   }

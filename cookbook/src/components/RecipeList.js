@@ -10,17 +10,10 @@ class RecipeList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nameRecipe: '',
-      nameIngred: '',
-      quanityIngred: '',
+      nameRecipe: ''
     }
-    this.addRec = this.addRec.bind(this);
     this.updateInput = this.updateInput.bind(this);
     this.id = 4;
-  }
-  addRec(e){
-    e.preventDefault();
-    addRecipe(this.state.nameRecipe)
   }
   updateInput(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -28,50 +21,58 @@ class RecipeList extends Component {
   renderList() {
     return this.props.recipes.map((recipe, ind) => {
       return (
-         <tr key={ind}>
+        <tr key={ind}>
           <td  onClick={() => {
-            this.props.selectRecipe(recipe)
+            this.props.selectRecipe(recipe);
+            this.setState({ selectRec: recipe.name});
+            this.props.history.push('/Recipes/');
           }}>{recipe.name}</td>
         </tr>
       );
     });
   }
+
   render() {
     const { addRecipe, searchRecipe} = this.props;
       return (
-      <div className="recipe-list">
-        <table className="table table-hover">
-          <thead>
-            <tr>
-              <th><h3>List of Recipes</h3></th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.renderList()}
-          </tbody>
-        </table>
-        <div className="recipe-add">
-          <input
-            onChange={this.updateInput}
-            type="text"
-            name="nameRecipe"
-            placeholder="Enter name"
-            required
-          /> 
-          <button  onClick={() => {
-            this.id = this.id+1;
-            console.log(this.id )
-            addRecipe(this.state.nameRecipe, this.id )
-          }}>Add Recipe</button>
-        </div>
-
+      <div>
+        <span style={{ float: 'right' }}>
+          <label>Search recipe</label>
           <input type="text"
-            name ="search"
-            placeholder="Search"
-            onChange= {(e) => {
-              searchRecipe(e.target.value)
-            }}
+              name ="search"
+              placeholder="Search"
+              onChange= {(e) => {
+                searchRecipe(e.target.value)
+              }}
           />
+          </span>
+        <div className="container-main">
+          <table className="table table-hover">
+            <thead>
+              <tr>
+                <th><h3>List of Recipes</h3></th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.renderList()}
+            </tbody>
+          </table>
+        </div>
+        <div className="divApp">
+          <div className="divAddR">
+            <input
+              onChange={this.updateInput}
+              type="text"
+              name="nameRecipe"
+              placeholder="Enter name"
+              required
+            /> 
+            <button  onClick={() => {
+              this.id = this.id + 1;
+              addRecipe(this.state.nameRecipe, this.id )
+            }}>Add Recipe</button>
+          </div>
+        </div>
       </div>
     );
   }
@@ -79,7 +80,6 @@ class RecipeList extends Component {
 const mapStateToProps = (state) => {
   return {
     recipes: state.recipeReducer.recipes,
-    //searchReducer: state.searchReducer
   }
 };
 

@@ -1,5 +1,5 @@
 h2 {
-  text-align: center;;
+  text-align: center;
   font-size: 35px;
   color: #0000CD;
   font-family: cursive;
@@ -14,16 +14,35 @@ span {
 }
 ul {
   display:table;
+  text-align: center;
 }
  
  li{
   display: table-row;
   display: block;
   vertical-align:middle;
+  text-align: center;
 }
-.show {
-  display: block;
+
+.divApp {
+  text-align: center;
+  display: grid;
+  grid-template-columns: 33fr 33fr 33fr;
+  margin-top: 20px;
 }
-.hide {
-  display: none;
+
+.divDel {
+  grid-column: 1;
+  text-align: center;
+
+}
+
+.divAdd {
+  grid-column: 3;
+  text-align: center;
+}
+
+.divChen {
+  grid-column: 2;
+  text-align: center;
 }
