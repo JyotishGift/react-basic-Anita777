@@ -17,9 +17,8 @@ ul {
   text-align: center;
 }
  
- li{
+.header li{
   display: table-row;
-  display: block;
   vertical-align:middle;
   text-align: center;
 }
@@ -27,22 +26,36 @@ ul {
 .divApp {
   text-align: center;
   display: grid;
-  grid-template-columns: 33fr 33fr 33fr;
+  grid-template-columns: 60fr 40fr;
   margin-top: 20px;
 }
 
 .divDel {
   grid-column: 1;
-  text-align: center;
+  
 
 }
 
 .divAdd {
-  grid-column: 3;
+  grid-column: 2;
   text-align: center;
 }
 
-.divChen {
-  grid-column: 2;
-  text-align: center;
+.filterInput{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+ 
+.filterTable {
+    border: 0px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: fixed;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font: 7pt tahoma;
+    border-color: #000000;
+    text-align: center;
 }

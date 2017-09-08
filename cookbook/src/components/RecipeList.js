@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {selectRecipe, addRecipe, searchRecipe } from '../actions';
+import {selectRecipe, addRecipe, searchRecipe, searchRecipeByIngred } from '../actions';
 import './RecipeList.css';
 
 class RecipeList extends Component {
@@ -12,8 +12,11 @@ class RecipeList extends Component {
     this.state = {
       nameRecipe: ''
     }
+
     this.updateInput = this.updateInput.bind(this);
     this.id = 4;
+    this.check1=false;
+    this.check2=false;
   }
   updateInput(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -33,24 +36,43 @@ class RecipeList extends Component {
   }
 
   render() {
-    const { addRecipe, searchRecipe} = this.props;
+    const { addRecipe, searchRecipe, searchRecipeByIngred} = this.props;
       return (
-      <div>
-        <span style={{ float: 'right' }}>
-          <label>Search recipe</label>
-          <input type="text"
-              name ="search"
-              placeholder="Search"
-              onChange= {(e) => {
-                searchRecipe(e.target.value)
-              }}
-          />
-          </span>
-        <div className="container-main">
+      <div className="container">
+        <h3>Search recipe</h3>
+          <form className="form-inline search-form">
+            <div className="form-group">
+              <label className="sr-only">Search</label>
+              <div className="checkbox">
+                <label><input type="checkbox" value="" onClick={(e) => {
+                  this.check1=true;
+                  this.check2=false;
+                }}/>by recipe</label>
+              </div>              
+              <input type="text" className="form-control" id= "search" placeholder="Search"
+                onChange= {(e) => {
+                  if (this.check1) {
+                    searchRecipe(e.target.value);
+                  }
+                  if (this.check2) {
+                    searchRecipeByIngred(e.target.value);
+                  }
+                }} />
+
+              <div className="checkbox">
+              <label><input type="checkbox" value="" 
+                onClick={(e) => {
+                  this.check2=true;
+                  this.check1=false;
+                }}/>by ingredients</label>
+            </div>          
+          </div>
+        </form>
+        <div className="container">
           <table className="table table-hover">
             <thead>
               <tr>
-                <th><h3>List of Recipes</h3></th>
+                <th><h2>List of Recipes</h2></th>
               </tr>
             </thead>
             <tbody>
@@ -58,21 +80,21 @@ class RecipeList extends Component {
             </tbody>
           </table>
         </div>
-        <div className="divApp">
-          <div className="divAddR">
-            <input
+        <form className="form-inline search-form">
+          <div className="form-group">
+            <input className="form-control"
               onChange={this.updateInput}
               type="text"
               name="nameRecipe"
-              placeholder="Enter name"
+              placeholder="Enter name recipe"
               required
-            /> 
-            <button  onClick={() => {
+            />
+            <button className="btn add-btn" onClick={() => {
               this.id = this.id + 1;
               addRecipe(this.state.nameRecipe, this.id )
-            }}>Add Recipe</button>
+            }}>Add Recipe</button> 
           </div>
-        </div>
+        </form>
       </div>
     );
   }
@@ -87,10 +109,12 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     { selectRecipe: selectRecipe,
       addRecipe: addRecipe, 
-      searchRecipe: searchRecipe
+      searchRecipe: searchRecipe,
+      searchRecipeByIngred: searchRecipeByIngred
     },
     dispatch
   );
 };
 export default connect (mapStateToProps, mapDispatchToProps)(RecipeList);
+
 

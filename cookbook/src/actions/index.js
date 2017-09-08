@@ -24,11 +24,11 @@ export function addRecipe(nameRec, id) {
   }
 }
 
-export const searchRecipe = (rec) => {
-  if (rec === '') rec = null
+export const searchRecipe = (str) => {
+  if (str === '') str = null
   return {
     type: 'SEARCH',
-    payload: rec
+    payload: str
   };
 }
 
@@ -38,7 +38,22 @@ export function addIngredient(name, quanity, id) {
     payload: {
       name: name,
       ingred_id: id,
-      quanity
+      quanity: quanity
     }
   }
+}
+
+export function deleteIngredients (id) {
+  return { 
+    type: 'INGREDIENT_DELETE',
+    payload: id
+  };
+}
+
+export const searchRecipeByIngred = (str) => {
+  if (str === '') str = null
+  return {
+    type: 'SEARCHBYINGRED',
+    payload: str
+  };
 }

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { deleteRecipe, addIngredient } from '../actions';
+import { deleteRecipe, addIngredient, deleteIngredients} from '../actions';
 import './Recipes.css';
 
 class Recipes extends Component {
@@ -11,14 +11,37 @@ class Recipes extends Component {
     this.state = {
       nameIngred: '',
       quanityIngred: ''
-    }
+    },
+    this.ingr=[];
     this.updateInput = this.updateInput.bind(this);
   }
   updateInput(e) {
     this.setState({ [e.target.name]: e.target.value });
+    this.ingr.filter((ingred, index) => {
+     if(ingred.name === e.target.placeholder) {
+        ingred.name = e.target.value
+      } 
+      if(ingred.quanity === e.target.placeholder) {
+        ingred.quanity = e.target.value
+      } 
+       return ingred
+    })
   }
   render() {
-    const {selectedRecipe, ingredients, deleteRecipe, addIngredient} = this.props;
+ 
+    const {
+      selectedRecipe,
+      ingredients,
+      deleteRecipe,
+      addIngredient,
+      deleteIngredients,
+    } = this.props;
+  
+    this.ingr=ingredients.filter(ingred => {
+    if(ingred.ingred_id === selectedRecipe.recipe_id)
+      return ingred
+    })  
+
     if(!selectedRecipe) {
       return <div>Select Recipe</div>
     }
@@ -26,30 +49,45 @@ class Recipes extends Component {
       <div className="container">
         <h2>{selectedRecipe.name}</h2>
         <h3>Ingredients:</h3>
-        <ul className="list-unstyled">
-          { ingredients.map((ingred, ind) => {
+        <table className="filterTable">
+          <thead>
+            <tr>
+              <td>Ingredient</td>
+              <td>Quanity</td>
+            </tr>
+          </thead>
+          <tbody>
+          { 
+            ingredients.map((ingred, ind) => {
             if(ingred.ingred_id === selectedRecipe.recipe_id){
               return(
-                <li key={ind}><span>{ingred.name}</span><span>{ingred.quanity}</span></li>
+                <tr key={ind} >
+                  <td  width="50" >
+                    <input onChange={this.updateInput}
+                       type="text" 
+                       name={ind}
+                       placeholder={ingred.name} className="filterInput"/></td>
+                  <td width="25">
+                    <input onChange={this.updateInput}
+                     type="text" 
+                     name={ind}
+                     placeholder={ingred.quanity} className="filterInput"/></td>
+                </tr>
               )
             }
           })
           }
-        </ul>
+          </tbody>
+        </table>
         <div className="divApp">
           <div className="divDel">
             <button onClick={() => {
               deleteRecipe(selectedRecipe.recipe_id);
-              this.props.history.push('/RecipeList/')
+              deleteIngredients(selectedRecipe.recipe_id);
+              this.props.history.push('/RecipeList/');
             }}>
               Delete recipe
             </button>
-          </div>
-          <div className="divChen">
-            <button onClick={() => {
-              console.log("save")}}>
-              Change recipe
-             </button>
           </div>
           <div className="divAdd">
             <input
@@ -71,7 +109,7 @@ class Recipes extends Component {
             }}>Add Ingredient</button>
           </div>
         </div>
-      </div>  
+     </div>  
     )
   }
 }
@@ -87,7 +125,8 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     { 
       deleteRecipe: deleteRecipe,
-      addIngredient: addIngredient
+      addIngredient: addIngredient,
+      deleteIngredients: deleteIngredients
     },
     dispatch
   );
@@ -95,3 +134,4 @@ const mapDispatchToProps = dispatch => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(Recipes) ;
 
+// <li key={ind}><span placeholder={ingred.name}>{ingred.name}</span><span placeholder={ingred.quanity}>{ingred.quanity}</span></li>

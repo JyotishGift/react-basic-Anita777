@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
 import RecipeList from './RecipeList';
 import Recipes from './Recipes';
-
 import './App.css';
 import img from './img.jpg';
 
@@ -20,7 +19,6 @@ class App extends Component {
             </header> 
           </div>
           <div className="image">
-            <h1 style={{ color: 'red'}}>COOKBOOK</h1>
             <img src={img} className="App-logo" alt="cookbook" />
           </div>
         </div>
