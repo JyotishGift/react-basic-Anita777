@@ -43,6 +43,7 @@ export const recipeReducer = (state = initialState, action) => {
         return { ...state, recipes: initialState.recipes};
       return {...state, recipes: recipesCopy}
     }
+
     case 'SEARCHBYINGRED': {
       const recipesCopy = []
       for (let i = 0; i < state.recipes.length; i++) {
@@ -56,9 +57,11 @@ export const recipeReducer = (state = initialState, action) => {
         return { ...state, recipes: initialState.recipes};
       return {...state, recipes: recipesCopy}
     }
+
     case 'INGREDIENT_ADD': {
       return   {...state, ingredients: state.ingredients.concat(action.payload)};
     }
+
     case 'INGREDIENT_DELETE': {
       const ingredientsCopy = [...state.ingredients].filter(ingredient => {
         if (ingredient.ingred_id !== action.payload) {
@@ -67,6 +70,7 @@ export const recipeReducer = (state = initialState, action) => {
       });
     return { ...state, ingredients: ingredientsCopy};
     }
+    
     default:
       return state;
   }

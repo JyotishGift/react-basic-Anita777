@@ -133,5 +133,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Recipes) ;
-
-// <li key={ind}><span placeholder={ingred.name}>{ingred.name}</span><span placeholder={ingred.quanity}>{ingred.quanity}</span></li>

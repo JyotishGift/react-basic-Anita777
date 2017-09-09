@@ -1,5 +1,4 @@
 
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,7 +11,6 @@ class RecipeList extends Component {
     this.state = {
       nameRecipe: ''
     }
-
     this.updateInput = this.updateInput.bind(this);
     this.id = 4;
     this.check1=false;
